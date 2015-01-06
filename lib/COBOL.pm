@@ -1,10 +1,16 @@
-BEGIN say 'before';
 use Slangy <COBOL>;
-BEGIN say 'after';
+use Test;
 
 slang COBOL {
-    has $.grammar = grammar :: is Slangy::Grammar {
-        rule statementlist(|) { ';'? bb }
+    has $.grammar = grammar :: does Slangy::Grammar {
+        rule statementlist(|) {
+            '' parse_okay || <.panic: "Confused">
+        }
+    }
+    has $.actions = class :: does Slangy::Actions {
+        method statementlist($/) {
+            ok True, "Can parse a simple statementlist";
+        }
     }
 }
 

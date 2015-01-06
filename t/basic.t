@@ -1,10 +1,9 @@
-{
-BEGIN say 'before2';
-    use COBOL;
-BEGIN say 'after2';
-    bb
-}
+BEGIN {} # Currently required, or Slangy dies with "Can't find class 'COBOL'"
 use Test;
 
-plan 3;
+BEGIN plan 1;
 
+{
+    use COBOL;
+    parse_okay
+}
